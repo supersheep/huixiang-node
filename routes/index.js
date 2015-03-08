@@ -19,9 +19,9 @@ function generateRoute(dir, routes){
 
 exports.pages = generateRoute('page', {
     "/": "index",
-    // '/new': 'new',
-    // '/piece/(\d+)': 'piece',
-    // '/people/(\d+)': 'people',
+    '/new': 'new',
+    '/piece/:id': 'piece',
+    '/people/:id': 'people',
     // '/login': 'login',
     '/logout': 'logout',
     // '/tools': 'tools',

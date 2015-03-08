@@ -6,5 +6,10 @@ module.exports = {
                 .exec(ok(callback, function(results){
                 	callback(null, results[0]);
                 }));
+	},
+	get: function(id, callback){
+		db.select('*').from('piece').where('id', id).exec(ok(callback, function(users){
+			callback(null,users[0]);
+		}))
 	}
 }

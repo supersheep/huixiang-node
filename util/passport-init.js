@@ -23,7 +23,6 @@ passport.use(new DoubanStrategy({
     callbackURL: config.auth_douban_callback
   },
   function(accessToken, refreshToken, profile, done) {
-    console.log(profile);
     User.findOrCreateByDoubanId(profile.id, function (err, user) {
       return done(err, user);
     });
@@ -55,10 +54,10 @@ passport.serializeUser(function (user, done) {
 });
 
 passport.deserializeUser(function (req, id, done) {
-    User.get(id, function (err, user) {
-        if (err || !user) {
-            return done(null, false);
-        }
-        done(null, user);
-    });
+  User.get(id, function (err, user) {
+      if (err || !user) {
+          return done(null, false);
+      }
+      done(null, user);
+  });
 });

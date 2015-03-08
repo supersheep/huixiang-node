@@ -24,7 +24,7 @@ likebtn.on("click",function(){
     var LIKED = "liked";
     if(likebtn.hasClass(LIKED)){
         $.ajax({
-            url:"/ajax/unfav",
+            url:"/api/unfav",
             type:"post",
             dataType:"json",
             data:{pieceid:id}
@@ -37,7 +37,7 @@ likebtn.on("click",function(){
         });
     }else{
         $.ajax({
-            url:"/ajax/fav",
+            url:"/api/fav",
             type:"post",
             dataType:"json",
             data:{pieceid:id}
