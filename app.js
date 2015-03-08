@@ -17,6 +17,7 @@ var services = require('./services');
 //添加了新的表格
 app.use(function(req,res,next){
     req.services = services;
+    res.locals.config = require('config');
     next();
 });
 
@@ -37,7 +38,7 @@ app.use(session({
     saveUninitialized: true
 }));
 app.use(compression());
-app.use(express.static(__dirname + '/static'));
+app.use(express.static(__dirname + '/public'));
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());

@@ -1,0 +1,37 @@
+$var name : new
+$var title : 记一句
+
+<form class="new-form" method="post">
+    <div class="box-text">
+        <textarea class="textarea" name="content" placeholder="记一句..."></textarea>
+        <input type="hidden" name="pics" id="pics">
+        <div class="pic-row">
+        </div>
+        <div class="form-row">
+            <input type="text" class="input" name="link" id="link" placeholder="http://" />
+        </div>
+
+        <ul class="funcs">
+            <li class="icon-image"></li>
+        </ul>
+
+        <div id="uploader-holder"></div>
+    </div>
+    <div class="box-bottom">
+
+        <div class="hint" style="display:none;"></div>
+        <input type="submit" class="btn" value="好了" />
+
+        <div class="private-setting">
+            <input type="checkbox" name="private" id="private" class="private-chk" />
+            <label for="private" class="private-label">私藏</label>
+        </div>
+        <div class="share">
+            <span class="lbl">分享：</span>
+            <label for="weibochk" class="sharebtn toweibo"></label>
+            <input type="checkbox" value="weibo" name="share" id="weibochk" />
+            <label for="doubanchk" class="sharebtn todouban"></label>
+            <input type="checkbox" value="douban" name="share" id="doubanchk" />
+        </div>
+    </div>
+</form>

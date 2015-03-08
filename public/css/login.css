@@ -1,0 +1,26 @@
+.login-panel {
+  zoom: 1;
+  width: 400px;
+  margin: 0 auto;
+  padding: 150px 0;
+  text-align: center;
+}
+.login-panel:before,
+.login-panel:after {
+  content: "";
+  display: table;
+}
+.login-panel:after {
+  clear: both;
+}
+.login-panel h1 {
+  color: #3c3a37;
+}
+.login-panel .login_douban,
+.login-panel .login_weibo {
+  margin: 10px;
+}
+.login-panel .login_douban img,
+.login-panel .login_weibo img {
+  padding: 10px;
+}

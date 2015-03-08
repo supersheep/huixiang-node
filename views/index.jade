@@ -1,5 +1,6 @@
-html
-	head
-		title=title
-	body
-		div hello world
+extends layout
+block variables
+	- var title = config.sitename + "-" + config.slogan
+	- var name = "index"
+block content
+	.pieces
