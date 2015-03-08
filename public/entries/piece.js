@@ -26,27 +26,21 @@ likebtn.on("click",function(){
         $.ajax({
             url:"/api/unfav",
             type:"post",
-            dataType:"json",
             data:{pieceid:id}
-        }).success(function(json){
-            if(json.code == 200){
-                liked_elems.removeClass(LIKED);
-            }else{
-                poplogin()
-            }
+        }).success(function(){
+            liked_elems.removeClass(LIKED);
+        }).fail(function(){
+            poplogin();
         });
     }else{
         $.ajax({
             url:"/api/fav",
             type:"post",
-            dataType:"json",
             data:{pieceid:id}
-        }).success(function(json){
-            if(json.code == 200){
-                liked_elems.addClass(LIKED);
-            }else{
-                poplogin()
-            }
+        }).success(function(){
+            liked_elems.addClass(LIKED);
+        }).fail(function(){
+            poplogin();
         });
     }
 })

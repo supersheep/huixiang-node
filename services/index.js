@@ -9,7 +9,6 @@ module.exports = (function(dir){
 	dirs.forEach(function(file){
 	  if(file !== "index.js"){
 	  	var modname = file.replace(/\.js$/,'');
-	  	console.log(modname);
 	    obj[modname[0].toUpperCase() + modname.slice(1)] = require( path.join(dir, file) );
 	  }
 	});

@@ -41,29 +41,23 @@ likebtn.on("click",function(){
     var LIKED = "liked";
     if(likebtn.hasClass(LIKED)){
         $.ajax({
-            url:"/ajax/unfav",
+            url:"/api/unfav",
             type:"post",
-            dataType:"json",
             data:{pieceid:id}
-        }).success(function(json){
-            if(json.code == 200){
-                liked_elems.removeClass(LIKED);
-            }else{
-                poplogin()
-            }
+        }).success(function(){
+            liked_elems.removeClass(LIKED);
+        }).fail(function(){
+            poplogin();
         });
     }else{
         $.ajax({
-            url:"/ajax/fav",
+            url:"/api/fav",
             type:"post",
-            dataType:"json",
             data:{pieceid:id}
-        }).success(function(json){
-            if(json.code == 200){
-                liked_elems.addClass(LIKED);
-            }else{
-                poplogin()
-            }
+        }).success(function(){
+            liked_elems.addClass(LIKED);
+        }).fail(function(){
+            poplogin();
         });
     }
 })
