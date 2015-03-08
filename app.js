@@ -14,13 +14,6 @@ var app = express();
 var routes = require("./routes");
 var services = require('./services');
 
-//添加了新的表格
-app.use(function(req,res,next){
-    req.services = services;
-    res.locals.config = require('config');
-    next();
-});
-
 require("./util/passport-init");
 
 app.set('view engine', 'jade');
@@ -43,11 +36,18 @@ app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(function(req,res,next){
+    req.services = services;
+    res.locals.config = require('config');
+    res.locals.title = config.sitename + "-" + config.slogan;
+    res.locals.user = req.user;
+    next();
+});
+
 app.use('/', routes.pages);
 app.use('/api', routes.api);
 
 app.use(function (err, req, res, next) {
-    console.log(err);
     console.log(err.stack);
     res.send(500, err);
 });

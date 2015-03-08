@@ -9,7 +9,7 @@ function generateRoute(dir, routes){
         var controller = require( "./" + dir + "/" + routes[k]);
         ["get","post","put","delete"].forEach(function(verb){
             if(controller[verb]){
-                router[verb](k, controller[verb]);
+                router[verb].apply(router, [k].concat(controller[verb]));
             }
         });
     }
@@ -23,13 +23,13 @@ exports.pages = generateRoute('page', {
     // '/piece/(\d+)': 'piece',
     // '/people/(\d+)': 'people',
     // '/login': 'login',
-    // '/logout': 'logout',
+    '/logout': 'logout',
     // '/tools': 'tools',
     // '/about': 'about',
     // '/app': 'app',
     // '/bookmarklet': 'bookmarklet',
-    // '/auth/(douban|weibo)': 'auth',
-    // '/auth/redirect/(douban|weibo)': 'auth_redirect'
+    '/auth/:type': 'auth',
+    '/auth/redirect/:type': 'auth_redirect'
 });
 
 exports.api = generateRoute('api', {

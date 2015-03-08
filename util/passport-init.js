@@ -1,7 +1,36 @@
-var md5 = require('MD5');
+var config = require('config');
 var passport = require('passport');
-var User;
-// var LocalStrategy = require('passport-local').Strategy;
+var User = require('services').User;
+var WeiboStrategy = require('passport-weibo').Strategy;
+var DoubanStrategy = require('passport-douban').Strategy;
+
+passport.use(new WeiboStrategy({
+    clientID: config.auth_weibo_key,
+    clientSecret: config.auth_weibo_secret,
+    callbackURL: config.auth_weibo_callback
+  },
+  function(accessToken, refreshToken, profile, done) {
+    User.findOrCreateByWeiboId(profile.id, function (err, user) {
+      return done(err, user);
+    });
+  }
+));
+
+
+passport.use(new DoubanStrategy({
+    clientID: config.auth_douban_key,
+    clientSecret: config.auth_douban_secret,
+    callbackURL: config.auth_douban_callback
+  },
+  function(accessToken, refreshToken, profile, done) {
+    console.log(profile);
+    User.findOrCreateByDoubanId(profile.id, function (err, user) {
+      return done(err, user);
+    });
+  }
+));
+
+
 
 // passport.use(new LocalStrategy({
 //     passReqToCallback: true
@@ -21,18 +50,15 @@ var User;
 //     });
 // }));
 
-// passport.serializeUser(function (user, done) {
-//     done(null, user.id);
-// });
+passport.serializeUser(function (user, done) {
+    done(null, user.id);
+});
 
-// passport.deserializeUser(function (req, id, done) {
-//     if (!User) {
-//         User = req.services.User;
-//     }
-//     User.get(id, function (err, user) {
-//         if (err || !user) {
-//             return done(null, false);
-//         }
-//         done(null, user);
-//     });
-// });
+passport.deserializeUser(function (req, id, done) {
+    User.get(id, function (err, user) {
+        if (err || !user) {
+            return done(null, false);
+        }
+        done(null, user);
+    });
+});
