@@ -13,6 +13,63 @@ exports.getByPieceId = function(pieceId, callback){
     }));
 };
 
+
+/**
+ * args.showPrivate
+ * args.userId
+ * args.per
+ * args.page
+ */
+exports.userFavPageCount = function(args, callback){
+  db("fav")
+    .join("piece", "piece.id","fav.pieceid")
+    .join("user", "user.id","fav.userid")
+    .count("piece.id as count")
+    .where({
+      "user.id":args.userId
+    })
+    .exec(function(err, results){
+      callback(null, results[0].count);
+    });
+};
+
+/**
+ * args.showPrivate
+ * args.userId
+ * args.per
+ * args.page
+ */
+exports.userFavs = function(args, callback){
+  var showPrivate = args.showPrivate || false;
+
+  db("fav")
+    .join("piece","piece.id","fav.pieceid")
+    .join("user", "user.id","fav.userid")
+    .leftJoin("work","work.id","piece.work")
+    .leftJoin("author","author.id","piece.author")
+    .select(
+      "piece.id","piece.private","piece.addtime",
+      "piece.id","piece.content","piece.pics",
+      "author.name as author_name", "work.title as work_title")
+    .where({
+      "user.id": args.userId
+    })
+    .orderBy("piece.addtime","desc")
+    .limit(args.per)
+    .offset((args.page - 1) * args.per)
+     .on('query', function(data) {
+       console.log(data);
+     })
+    .exec(function(err, favs){
+      if(!showPrivate){
+        favs = favs.filter(function(item){
+          return item["private"];
+        });
+      }
+      callback(null, favs);
+    });
+};
+
 exports.faved = function(userId, pieceId, callback){
   db
     .select('*')
@@ -46,4 +103,4 @@ exports.unfav = function(userId, pieceId, callback){
     })
     .del()
     .exec(callback);
-}
+};

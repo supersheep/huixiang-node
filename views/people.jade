@@ -1,59 +1,45 @@
-$def with (favs,page_user,pages,current)
-$var name : people
-$var title : $page_user.name
+extends layout
+block variables
+  - var name = "people"
+  - var title = page_user.name
+block content
+  #people
+    .avatar
+      img(src="#{page_user.avatar}",alt="#{page_user.name}")
+    if user && user.name == page_user.name
+      .share
+        a(class=["sharebtn","todouban", user.douban_access_token?"active":""],href="javascript:;", data-type="douban", title="已绑定豆瓣")
+        a(class=["sharebtn","toweibo", user.douban_access_token?"active":""],href="javascript:;", data-type="weibo", title="已绑定微博")
+    if pages > 1
+      .pages
+        if (page - 1) > 0
+          a.prev.num(href="?page=#{page-1}") ‹
+        div.current
+          | #{page}/#{pages}
+        if page < pages
+          a.next.num(href="?page=#{page+1}") ›
 
-<div id="people">
-    <div class="avatar">
-        <img src="$page_user["avatar"]"  alt="$page_user["name"]">
-    </div>
-    $if user and user["name"]==page_user["name"]:
-        <div class="share">
-            $if user["douban_access_token"]:
-                <a href="javascript:;" class="sharebtn active todouban" data-type="douban" title="已绑定豆瓣"></a>
-            $else:
-                <a href="javascript:;" class="sharebtn todouban" data-type="douban" title="绑定豆瓣"></a>
-            $if user["weibo_access_token"]:
-                <a href="javascript:;" class="sharebtn active toweibo" data-type="weibo" title="已绑定微博"></a>
-            $else:
-                <a href="javascript:;" class="sharebtn toweibo" data-type="weibo" title="绑定微博"></a>
-        </div>
-    $if pages > 1:
-        <div class="pages">
-            $if (current - 1) > 0:
-                <a class="prev num" href="?page=$(current-1)">‹</a>
-            <div class="current">$current/$pages</div>
-            $if current < pages:
-                <a class="next num" href="?page=$(current+1)">›</a>
-        </div>
-</div>
+  .favs
+    each piece in favs
+      .piece(data-id="#{piece.id}")
+        if page_user && user && (page_user.id == user.id)
+          .del.icon-times
 
-<div class="favs">
-    $for piece in favs
-        <div class="piece" data-id="$piece["id"]">
-            $if page_user and user and page_user["id"] == user["id"]:
-                <div class="del icon-times"></div>
-            <div class="piece-body">
-                <div class="content">
-                    <a href="/piece/$piece["id"]" target="_blank">
-                        $:piece["content"].replace('\n', '<br />')
-                    </a>
-                </div>
-                <div class="by">
-                    $if piece["author_name"]:
-                        —— $piece["author_name"]
-                    $if piece["work_title"]:
-                        《$piece["work_title"]》
-                </div>
-                <div class="info">
-                $if piece["private"]:
-                    <div class="private"><i class="icon-lock-closed"></i></div>
-                $if piece["pics"]:
-                    <div class="image"><i class="icon-image"></i></div>
-                <div class="addtime">
-                    $if "addtime" in piece and piece["addtime"] != None:
-                        $piece["addtime"].strftime('%Y-%m-%d')
-                </div>
-                </div>
-            </div>
-        </div>
-</div>
+        .piece-body
+          .content
+            a(href="/piece/#{piece.id}",target="_blank") #{piece.content.replace('\n','<br />')}
+          .by
+            if piece.author_name
+              | —— #{piece["author_name"]}
+            if piece["work_title"]
+              | 《#{piece["work_title"]}》
+          .info
+            if piece["private"]
+              .private
+                i.icon-lock-closed
+            if piece["pics"]
+              .image
+                i.icon-image
+            .addtime
+              if addtime in piece && !!piece.addtime
+                | piece.addtime

@@ -16,5 +16,6 @@ exports.findOrCreateByDoubanId = function(doubanId, callback){
 exports.get = function(id, callback){
 	db.select('*').from('user').where('id', id).exec(ok(callback, function(users){
 		callback(null,users[0]);
-	}))
-}
+	}));
+};
+
