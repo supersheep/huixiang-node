@@ -41,7 +41,7 @@ exports.api = generateRoute('api', {
     '/fav':'fav',
     '/unfav':'unfav',
     // '/remove':'remove',
-    // '/upload/token':'uploadtoken',
+    '/upload/token':'uploadtoken',
     // '/upload/callback':'uploadcallback',
     // '/authtoken/weibo': 'auth'
 });

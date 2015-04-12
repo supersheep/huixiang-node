@@ -12,7 +12,7 @@ function beforeUpload(file, done){
     success:function(json){
       var fileName = json.fileName; // random file name generated
       var token = json.token;
-      var type = file.type;
+      var type = file.ext;
       uploader.set('data',{
         token: token,
         key:"pic/" + fileName + type

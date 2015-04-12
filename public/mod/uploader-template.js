@@ -19,5 +19,9 @@ module.exports = {
     },
     error: function(e){
         console && console.log("e")
+    },
+    remove: function(e){
+        var elem = e.elem;
+        elem && elem.remove();
     }
 };

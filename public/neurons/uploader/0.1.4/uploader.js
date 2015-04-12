@@ -306,6 +306,9 @@ Uploader.prototype._successCount = function(){
 
 Uploader.prototype.reachMax = function(){
     var maxItems = this.get("maxItems");
+    if(maxItems == -1){
+        return false;
+    }
     return maxItems <= this._successCount();
 }
 

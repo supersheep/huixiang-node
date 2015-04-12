@@ -53,16 +53,16 @@ neuron.config({
         "jquery@~1.9.1": 6,
         "underscore@~1.6.0": 7,
         "util@~1.0.4": 2,
+        "simple-mime@^0.0.8": 9,
         "json@~1.0.1": 3,
-        "swfupload@~0.1.0": 9,
-        "simple-mime@^0.0.8": 10
+        "swfupload@~0.1.0": 10
       }
     ],
     "9": [
-      "0.1.0"
+      "0.0.8"
     ],
     "10": [
-      "0.0.8"
+      "0.1.0"
     ],
     "_": {
       "huixiang@0.1.0": 0,
