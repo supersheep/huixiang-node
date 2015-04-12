@@ -37,7 +37,7 @@ block content
                   each faver in favers
                     if !user || user.id != faver.id
                       li
-                        a(href="people/#{faver.id}")
+                        a(href="/people/#{faver.id}")
                           img(src="#{faver.avatar}")
                   if fav_count > 8
                     .fav-count

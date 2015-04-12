@@ -28,6 +28,8 @@ block content
         .piece-body
           .content
             a(href="/piece/#{piece.id}",target="_blank") #{piece.content.replace('\n','<br />')}
+          .addtime
+            | #{moment(piece.addtime).format('YYYY-MM-DD')}
           .by
             if piece.author_name
               | —— #{piece["author_name"]}

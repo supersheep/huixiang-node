@@ -5,7 +5,6 @@ var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
 var cookieParser = require('cookie-parser');
 var async = require('async');
-var moment = require('moment');
 var bodyParser = require('body-parser');
 var compression = require('compression');
 var passport = require('passport');
@@ -38,7 +37,8 @@ app.use(passport.session());
 
 app.use(function(req,res,next){
     req.services = services;
-    res.locals.config = require('config');
+    res.locals.config = config;
+    res.locals.moment = require('moment');
     res.locals.title = config.sitename + "-" + config.slogan;
     res.locals.user = req.user;
     next();

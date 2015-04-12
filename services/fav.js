@@ -63,7 +63,7 @@ exports.userFavs = function(args, callback){
     .exec(function(err, favs){
       if(!showPrivate){
         favs = favs.filter(function(item){
-          return item["private"];
+          return item["private"] != 0;
         });
       }
       callback(null, favs);
